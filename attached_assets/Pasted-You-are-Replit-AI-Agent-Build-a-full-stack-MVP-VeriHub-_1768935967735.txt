@@ -1,0 +1,107 @@
+You are Replit AI Agent. Build a full-stack MVP: “VeriHub Civic — LLM Audit & Drift Dashboard”.
+
+MVP purpose:
+This app helps public-facing organizations measure what LLMs say about key civic services in FR/NL (MVP), detect issues (incorrect / outdated / ungrounded / FR↔NL drift), and show measurable “before/after” improvement after updating a verified Facts & Sources Hub.
+
+Hard requirements (must):
+1) Stack:
+   - Backend: Python 3.11 + FastAPI, Pydantic, SQLAlchemy 2, Alembic migrations.
+   - DB: SQLite by default (works in Replit), plus docker-compose with Postgres for production-like setup.
+   - Frontend: React + Vite + TypeScript. Keep UI simple and clear.
+2) OpenAPI:
+   - Export and commit a static openapi.yaml via a script backend/scripts/export_openapi.py.
+3) Tests:
+   - Backend unit tests (pytest) for scoring (incorrect/outdated/ungrounded), drift detection, and risk scoring.
+   - Backend integration tests that cover the main flow:
+     create audit run → produce findings → update a fact → rerun → verify before/after difference.
+4) Containerization:
+   - Dockerfile for backend and frontend + docker-compose.yml (backend + frontend + postgres).
+5) CI/CD:
+   - GitHub Actions workflow that runs lint + tests. (Auto-deploy optional; instructions in README are fine.)
+6) Deployment readiness:
+   - README includes deployment steps (Render/Fly.io/etc). Make the project deployable.
+7) Reproducibility:
+   - README includes: local run, docker run, tests, OpenAPI export, how audits work.
+8) No API keys required:
+   - Implement a deterministic MockLLMProvider that returns answers from data/mock_llm_answers.json.
+   - Optionally add OpenAIProvider controlled via env vars, but never required for demo/tests.
+
+Core features (MVP must-have):
+A) Facts & Sources Hub (CRUD):
+   - Fact fields: id, key, lang (fr/nl), value, source_ref (local markdown in /data/sources/*.md OR URL),
+     last_verified (date), linked_fact_id (FR↔NL linkage), topic (optional).
+   - API: search facts, get fact, create/update fact, list facts by lang/topic.
+B) Question Sets (seed + minimal CRUD):
+   - QuestionSet: id, title, languages, topics, version.
+   - Question: id, lang, topic, risk_tag, text, expected_fact_keys (list).
+C) Audit Runs:
+   - AuditRun: id, question_set_id, created_at, provider (“mock”/“openai”), status.
+   - Answer: audit_run_id, question_id, lang, answer_text, citations (list).
+D) Findings:
+   - Finding: audit_run_id, question_id, lang, type {incorrect,outdated,ungrounded,drift},
+     severity (0–10), evidence_json, suggested_fix.
+   - Scoring rules:
+     - ungrounded: no citations markers AND no match to Facts Hub for expected_fact_keys.
+     - outdated: answer conflicts with facts whose last_verified indicates freshness problems (threshold-based),
+       or explicitly uses known old values.
+     - drift: compare FR vs NL for key fields (appointment_link/phone/address/deadline_days/hours).
+     - risk score: weight depends on risk_tag (deadline/eligibility/location/contact/docs/fees/hours/general).
+E) Before/After comparison:
+   - After updating facts and rerunning: a comparison view with counts by finding type, top improvements.
+
+UI pages (simple but functional):
+1) Dashboard: last run metrics (counts by type, top severity).
+2) Audit Runs: list + details.
+3) Findings: list with filters (type, severity>=, lang, topic).
+4) Facts Hub: table + search + edit.
+5) Question Sets: view seeded questions; minimal add/edit optional.
+
+Minimum API endpoints:
+- GET/POST /api/question-sets
+- GET/POST/PUT /api/questions
+- POST /api/audit-runs (start run)
+- GET /api/audit-runs, GET /api/audit-runs/{id}
+- GET /api/audit-runs/{id}/findings
+- GET/POST/PUT /api/facts, GET /api/facts/search
+- POST /api/audit-runs/{id}/rerun (or POST /api/audit-runs with baseline_id)
+
+Repo structure to generate:
+ /backend
+   app/main.py
+   app/api/*.py
+   app/models.py
+   app/schemas.py
+   app/services/audit_runner.py
+   app/services/scoring.py
+   app/services/drift.py
+   app/db.py
+   alembic/...
+   tests/unit/...
+   tests/integration/...
+   scripts/export_openapi.py
+ /frontend
+   src/pages/...
+   src/api/client.ts
+   src/components/...
+ /data
+   question_set_demoville_fr_nl_v2.json
+   facts_seed_v2.json
+   mock_llm_answers_v2.json
+   scoring_rules.yaml
+   sources/
+     *.md
+ /docker
+   Dockerfile.backend
+   Dockerfile.frontend
+ docker-compose.yml
+ .github/workflows/ci.yml
+ README.md
+ replit.toml (or .replit) + scripts/dev.sh to run backend+frontend
+
+Seed behavior:
+- On backend startup, if DB is empty, import /data/facts_seed_v2.json and /data/question_set_demoville_fr_nl_v2.json.
+- MockLLMProvider reads /data/mock_llm_answers_v2.json.
+
+Do NOT ask me questions. Make reasonable assumptions and implement completely.
+Keep dependencies minimal. Ensure tests pass. Ensure the app can be started with one command.
+In README, include sections: “How AI tools were used” and “Where MCP could fit” (even if MCP not implemented).
