@@ -1,0 +1,21 @@
+export type {
+  Fact,
+  InsertFact,
+  QuestionSet,
+  InsertQuestionSet,
+  Question,
+  InsertQuestion,
+  AuditRun,
+  InsertAuditRun,
+  Answer,
+  InsertAnswer,
+  Finding,
+  InsertFinding,
+  DashboardMetrics,
+  Comparison,
+  Language,
+  RiskTag,
+  FindingType,
+  AuditStatus,
+  Provider
+} from "@shared/schema";
