@@ -1,0 +1,216 @@
+{
+  "question_set_id": "demoville_residence_v2",
+  "title": "DemoVille — Residence service audit (FR/NL) v2",
+  "languages": ["fr", "nl"],
+  "topics": ["appointments", "contact", "deadlines", "documents", "fees", "processing_time", "hours", "location", "eligibility", "payment"],
+  "questions": [
+    {
+      "id": "q_fr_001",
+      "lang": "fr",
+      "topic": "appointments",
+      "risk_tag": "deadline",
+      "text": "Comment prendre rendez-vous pour une attestation de résidence ? Donne le lien officiel.",
+      "expected_fact_keys": ["appointment_link"]
+    },
+    {
+      "id": "q_nl_001",
+      "lang": "nl",
+      "topic": "appointments",
+      "risk_tag": "deadline",
+      "text": "Hoe maak ik een afspraak voor een bewijs van verblijf? Geef de officiële link.",
+      "expected_fact_keys": ["appointment_link"]
+    },
+    {
+      "id": "q_fr_002",
+      "lang": "fr",
+      "topic": "contact",
+      "risk_tag": "contact",
+      "text": "Quel est le numéro de téléphone du service citoyen ?",
+      "expected_fact_keys": ["phone"]
+    },
+    {
+      "id": "q_nl_002",
+      "lang": "nl",
+      "topic": "contact",
+      "risk_tag": "contact",
+      "text": "Wat is het telefoonnummer van de dienst burgerzaken?",
+      "expected_fact_keys": ["phone"]
+    },
+    {
+      "id": "q_fr_003",
+      "lang": "fr",
+      "topic": "contact",
+      "risk_tag": "contact",
+      "text": "Quelle est l’adresse email officielle pour contacter la ville ?",
+      "expected_fact_keys": ["email"]
+    },
+    {
+      "id": "q_nl_003",
+      "lang": "nl",
+      "topic": "contact",
+      "risk_tag": "contact",
+      "text": "Wat is het officiële e-mailadres om de stad te contacteren?",
+      "expected_fact_keys": ["email"]
+    },
+    {
+      "id": "q_fr_004",
+      "lang": "fr",
+      "topic": "location",
+      "risk_tag": "location",
+      "text": "Où se trouve le guichet (adresse complète) pour les démarches de résidence ?",
+      "expected_fact_keys": ["address"]
+    },
+    {
+      "id": "q_nl_004",
+      "lang": "nl",
+      "topic": "location",
+      "risk_tag": "location",
+      "text": "Waar is het loket (volledig adres) voor verblijfszaken?",
+      "expected_fact_keys": ["address"]
+    },
+    {
+      "id": "q_fr_005",
+      "lang": "fr",
+      "topic": "hours",
+      "risk_tag": "hours",
+      "text": "Quelles sont les heures d’ouverture du guichet ?",
+      "expected_fact_keys": ["opening_hours"]
+    },
+    {
+      "id": "q_nl_005",
+      "lang": "nl",
+      "topic": "hours",
+      "risk_tag": "hours",
+      "text": "Wat zijn de openingsuren van het loket?",
+      "expected_fact_keys": ["opening_hours"]
+    },
+    {
+      "id": "q_fr_006",
+      "lang": "fr",
+      "topic": "appointments",
+      "risk_tag": "hours",
+      "text": "Le rendez-vous est-il obligatoire ou puis-je venir sans rendez-vous ?",
+      "expected_fact_keys": ["appointment_required", "walk_in_allowed"]
+    },
+    {
+      "id": "q_nl_006",
+      "lang": "nl",
+      "topic": "appointments",
+      "risk_tag": "hours",
+      "text": "Is een afspraak verplicht of kan ik zonder afspraak langskomen?",
+      "expected_fact_keys": ["appointment_required", "walk_in_allowed"]
+    },
+    {
+      "id": "q_fr_007",
+      "lang": "fr",
+      "topic": "deadlines",
+      "risk_tag": "deadline",
+      "text": "Après un déménagement, dans combien de jours dois-je me déclarer ?",
+      "expected_fact_keys": ["deadline_days"]
+    },
+    {
+      "id": "q_nl_007",
+      "lang": "nl",
+      "topic": "deadlines",
+      "risk_tag": "deadline",
+      "text": "Binnen hoeveel dagen na een verhuis moet ik me aanmelden?",
+      "expected_fact_keys": ["deadline_days"]
+    },
+    {
+      "id": "q_fr_008",
+      "lang": "fr",
+      "topic": "processing_time",
+      "risk_tag": "general",
+      "text": "Quel est le délai de traitement pour obtenir l’attestation de résidence ?",
+      "expected_fact_keys": ["processing_time_days"]
+    },
+    {
+      "id": "q_nl_008",
+      "lang": "nl",
+      "topic": "processing_time",
+      "risk_tag": "general",
+      "text": "Wat is de doorlooptijd om het bewijs van verblijf te krijgen?",
+      "expected_fact_keys": ["processing_time_days"]
+    },
+    {
+      "id": "q_fr_009",
+      "lang": "fr",
+      "topic": "fees",
+      "risk_tag": "fees",
+      "text": "Combien coûte l’attestation de résidence ?",
+      "expected_fact_keys": ["fee_eur"]
+    },
+    {
+      "id": "q_nl_009",
+      "lang": "nl",
+      "topic": "fees",
+      "risk_tag": "fees",
+      "text": "Hoeveel kost het bewijs van verblijf?",
+      "expected_fact_keys": ["fee_eur"]
+    },
+    {
+      "id": "q_fr_010",
+      "lang": "fr",
+      "topic": "payment",
+      "risk_tag": "fees",
+      "text": "Quels moyens de paiement sont acceptés au guichet ?",
+      "expected_fact_keys": ["payment_methods"]
+    },
+    {
+      "id": "q_nl_010",
+      "lang": "nl",
+      "topic": "payment",
+      "risk_tag": "fees",
+      "text": "Welke betaalmethoden worden aan het loket aanvaard?",
+      "expected_fact_keys": ["payment_methods"]
+    },
+    {
+      "id": "q_fr_011",
+      "lang": "fr",
+      "topic": "documents",
+      "risk_tag": "documents",
+      "text": "Quels documents dois-je apporter pour l’attestation de résidence ?",
+      "expected_fact_keys": ["documents_list"]
+    },
+    {
+      "id": "q_nl_011",
+      "lang": "nl",
+      "topic": "documents",
+      "risk_tag": "documents",
+      "text": "Welke documenten moet ik meebrengen voor het bewijs van verblijf?",
+      "expected_fact_keys": ["documents_list"]
+    },
+    {
+      "id": "q_fr_012",
+      "lang": "fr",
+      "topic": "documents",
+      "risk_tag": "documents",
+      "text": "Où puis-je télécharger le formulaire officiel (lien) ?",
+      "expected_fact_keys": ["form_url"]
+    },
+    {
+      "id": "q_nl_012",
+      "lang": "nl",
+      "topic": "documents",
+      "risk_tag": "documents",
+      "text": "Waar kan ik het officiële formulier downloaden (link)?",
+      "expected_fact_keys": ["form_url"]
+    },
+    {
+      "id": "q_fr_013",
+      "lang": "fr",
+      "topic": "eligibility",
+      "risk_tag": "eligibility",
+      "text": "Qui peut demander une attestation de résidence ? Y a-t-il des conditions d’éligibilité ?",
+      "expected_fact_keys": ["eligibility_criteria"]
+    },
+    {
+      "id": "q_nl_013",
+      "lang": "nl",
+      "topic": "eligibility",
+      "risk_tag": "eligibility",
+      "text": "Wie kan een bewijs van verblijf aanvragen? Zijn er voorwaarden?",
+      "expected_fact_keys": ["eligibility_criteria"]
+    }
+  ]
+}
