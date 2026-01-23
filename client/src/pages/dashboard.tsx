@@ -98,7 +98,7 @@ export default function Dashboard() {
           value={findingsByType.drift || 0}
           description="Language inconsistencies"
           icon={GitCompare}
-          variant={findingsByType.drift > 0 ? "warning" : "default"}
+          variant={(findingsByType.drift ?? 0) > 0 ? "warning" : "default"}
         />
         <MetricsCard
           title="Last Audit"

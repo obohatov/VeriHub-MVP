@@ -52,7 +52,8 @@ export async function detectDrift(
   }
 
   // Check each fact key for drift
-  for (const [factKey, data] of answersByFactKey) {
+  const entries = Array.from(answersByFactKey.entries());
+  for (const [factKey, data] of entries) {
     if (!data.fr || !data.nl || !data.question) continue;
 
     const driftIssue = checkForDrift(
@@ -63,9 +64,11 @@ export async function detectDrift(
 
     if (driftIssue) {
       const baseSeverity = 7;
+      const riskTag = data.question.riskTag;
+      const weight = riskTag in riskWeights ? riskWeights[riskTag as RiskTag] : 1.0;
       const severity = Math.min(
         10,
-        Math.round(baseSeverity * riskWeights[data.question.riskTag])
+        Math.round(baseSeverity * weight)
       );
 
       findings.push({
