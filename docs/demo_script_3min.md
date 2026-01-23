@@ -35,4 +35,5 @@ Tip: open one finding card and point to:
 7) Re-open a drift finding:
    - “Even official FR and NL pages drift. VeriHub makes it measurable and actionable.”
 8) Closing line:
+
    - “This is regression testing for public information in the AI era.”

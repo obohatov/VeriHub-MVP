@@ -244,14 +244,6 @@ Full script: see `docs/demo_script_3min.md`.
 
 ---
 
-## Roadmap
-
-- [ ] Load seeds from `/data/*.json` (facts, questions, mock answers)
-- [ ] Export and commit static OpenAPI (`openapi.yaml`)
-- [ ] Add unit + integration tests
-- [ ] Add Docker + docker-compose
-- [ ] Add GitHub Actions CI (lint/typecheck/tests)
-
 ## Screenshots
 
 ### Dashboard — key metrics and severity overview
