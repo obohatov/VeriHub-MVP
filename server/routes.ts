@@ -1,6 +1,6 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { storage } from "./storage";
+import { initializeStorage, storage } from "./storage";
 import { runAudit } from "./services/auditRunner";
 import { insertFactSchema, insertAuditRunSchema } from "@shared/schema";
 
@@ -8,8 +8,8 @@ export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
-  // Initialize seed data
-  await storage.seedData();
+  // Initialize database and seed data
+  await initializeStorage();
 
   // ============== DASHBOARD ==============
   app.get("/api/dashboard/metrics", async (req, res) => {

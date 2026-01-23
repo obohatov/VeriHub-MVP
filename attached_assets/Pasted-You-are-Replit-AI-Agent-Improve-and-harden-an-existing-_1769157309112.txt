@@ -1,0 +1,118 @@
+You are Replit AI Agent. Improve and harden an existing full-stack project “VeriHub Civic — LLM Audit & Drift Dashboard” to satisfy the DatatalksClub AI Dev Tools Zoomcamp project requirements.
+
+Context / what already exists:
+- Stack already implemented: React + Vite + TypeScript (client) and Express + TypeScript (server).
+- The app already has basic pages: Dashboard, Question Sets, Audit Runs, Findings, Facts Hub, Comparison.
+- Storage is currently in-memory (server/storage.ts seeds).
+- IMPORTANT: Data artifacts have already been added to the repo and must be used:
+  - data/question_sets/question_set_demoville_fr_nl_v2.json
+  - data/facts/facts_seed_v2.json
+  - data/mock/mock_llm_answers_baseline.json
+  - data/mock/mock_llm_answers_after.json
+  - data/scoring_rules.yaml
+  - Verified sources markdown files are available for the frontend at:
+    client/public/data/sources/*.md (served as /data/sources/...)
+Goal:
+Make the project thoroughly tested, containerized, deployed-ready, reproducible, and documented, with an OpenAPI contract and database persistence. Keep the existing UI/UX; refactor/extend backend safely.
+
+Must deliverables (do all):
+1) Database integration (persistent storage)
+   - Replace in-memory storage with a real DB layer.
+   - Use an ORM suitable for TS (prefer Drizzle if already present; otherwise Prisma is acceptable).
+   - Support two environments:
+     * SQLite for local/dev (default)
+     * Postgres for docker-compose + production-like deployment
+   - Create migrations.
+   - Persist: facts, question_sets, questions, audit_runs, answers, findings.
+   - Provide seeding: on startup, if DB empty, seed from the JSON artifacts in /data.
+
+2) Load artifacts from repo files (not hardcoded)
+   - Implement a loader that reads:
+     * facts_seed_v2.json -> Facts table
+     * question_set_demoville_fr_nl_v2.json -> QuestionSet + Questions
+     * scoring_rules.yaml -> scoring config (risk weights, stale thresholds, citation markers, drift keys)
+     * mock_llm answers baseline/after -> used by MockLLMProvider
+   - Add a “provider mode” parameter when creating an audit run:
+     provider = "mock-baseline" | "mock-after" | "openai"(optional)
+   - For mock providers, return deterministic answers from the corresponding JSON file.
+
+3) OpenAPI contract (required)
+   - Add OpenAPI 3.1 specification that matches the actual endpoints and frontend needs.
+   - Generate and COMMIT a static openapi.yaml.
+   - Add a script: server/scripts/export_openapi.ts that writes openapi.yaml.
+   - Serve Swagger UI in dev at /api/docs (optional but helpful).
+   - Ensure backend routes match the spec.
+
+4) Testing (required)
+   - Unit tests: scoring/outdated/ungrounded/incorrect/drift (pure functions).
+   - Integration tests: key workflow with DB:
+     - seed DB
+     - create audit run (mock-baseline) -> findings exist
+     - create audit run (mock-after) -> fewer incorrect/ungrounded
+     - verify comparison endpoint reports resolved findings
+   - Use a clear separation:
+     /server/tests/unit
+     /server/tests/integration
+   - Use a test runner (Vitest or Jest) + supertest for API testing.
+   - Ensure tests are documented in README and run in CI.
+
+5) Containerization (required)
+   - Add Dockerfiles:
+     - Dockerfile.server
+     - Dockerfile.client
+   - Add docker-compose.yml that runs:
+     - postgres
+     - server
+     - client (or a single nginx container serving built client; choose simplest)
+   - One command should bring the whole system up: docker compose up --build
+   - Document it in README.
+
+6) CI/CD (required)
+   - Add GitHub Actions workflow:
+     - install
+     - typecheck/lint
+     - run unit tests
+     - run integration tests (use SQLite, OR run Postgres service in CI if feasible)
+   - Bonus: add CD step (optional) that deploys on main if tests pass (can be described even if not fully automated).
+
+7) Deployment readiness (required)
+   - Update README with deployment steps (Render/Fly.io/Railway).
+   - Provide environment variable list and defaults:
+     DATABASE_URL / DB_MODE (sqlite/postgres) / PORT
+     plus optional OPENAI_API_KEY if OpenAI provider exists.
+   - Provide proof-friendly output: a working URL is ideal, but at minimum clear steps.
+
+8) Reproducibility & documentation (required)
+   - Update README so a reviewer can:
+     - run locally
+     - run tests
+     - run in docker
+     - understand architecture (client/server/db/artifacts)
+     - understand OpenAPI contract location and how to regenerate it
+   - Add docs/ai_worklog.md: explain how AI tools were used to build the project (include prompt snippets and what was generated).
+   - Add a short section “How MCP could fit” OR implement a minimal MCP server (bonus for scoring):
+     - Minimal MCP server exposing tools:
+       * search_facts(query, lang)
+       * list_findings(run_id, type?, severity_min?)
+     - If implementing MCP is too time-consuming, at least document how it would be used.
+
+9) Keep the current user-facing MVP behavior
+   - Facts Hub should show sourceRef links that open /data/sources/*.md.
+   - Audit runs should work with mock-baseline and mock-after.
+   - Findings list filtering remains functional.
+   - Comparison page should show before/after counts.
+
+Implementation guidance:
+- Do NOT rewrite the entire project from scratch.
+- Refactor incrementally: add DB layer, then switch existing routes to DB repositories.
+- Keep API routes stable where possible; if changed, update frontend client and OpenAPI accordingly.
+- Add centralized frontend API client (if not already) so calls are not scattered.
+- Ensure everything passes typecheck and tests.
+- At the end, print a checklist of what you implemented and where:
+  - OpenAPI path
+  - test commands
+  - docker commands
+  - seed/artifacts loader location
+  - CI workflow path
+
+Do not ask me questions. Make reasonable assumptions and implement fully.

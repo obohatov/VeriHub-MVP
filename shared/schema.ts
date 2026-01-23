@@ -36,7 +36,7 @@ export const auditStatusSchema = z.enum([
 export type AuditStatus = z.infer<typeof auditStatusSchema>;
 
 // LLM Provider
-export const providerSchema = z.enum(["mock", "openai"]);
+export const providerSchema = z.enum(["mock-baseline", "mock-after", "openai"]);
 export type Provider = z.infer<typeof providerSchema>;
 
 // ============== FACTS ==============
@@ -96,7 +96,7 @@ export type AuditRun = z.infer<typeof auditRunSchema>;
 
 export const insertAuditRunSchema = z.object({
   questionSetId: z.string(),
-  provider: providerSchema.optional().default("mock"),
+  provider: providerSchema.optional().default("mock-baseline"),
   baselineRunId: z.string().nullable().optional(),
 });
 export type InsertAuditRun = z.infer<typeof insertAuditRunSchema>;

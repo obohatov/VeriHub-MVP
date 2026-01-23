@@ -1,0 +1,527 @@
+openapi: 3.1.0
+info:
+  title: VeriHub Civic API
+  description: LLM Audit & Drift Dashboard API for civic services in FR/NL
+  version: 1.0.0
+  contact:
+    name: VeriHub Civic
+servers:
+  - url: /api
+    description: API server
+
+paths:
+  /dashboard/metrics:
+    get:
+      summary: Get dashboard metrics
+      operationId: getDashboardMetrics
+      tags: [Dashboard]
+      responses:
+        '200':
+          description: Dashboard metrics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardMetrics'
+
+  /facts:
+    get:
+      summary: List all facts
+      operationId: getFacts
+      tags: [Facts]
+      responses:
+        '200':
+          description: List of facts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fact'
+    post:
+      summary: Create a new fact
+      operationId: createFact
+      tags: [Facts]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InsertFact'
+      responses:
+        '201':
+          description: Created fact
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fact'
+
+  /facts/search:
+    get:
+      summary: Search facts
+      operationId: searchFacts
+      tags: [Facts]
+      parameters:
+        - name: q
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fact'
+
+  /facts/{id}:
+    get:
+      summary: Get fact by ID
+      operationId: getFactById
+      tags: [Facts]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Fact details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fact'
+        '404':
+          description: Fact not found
+    put:
+      summary: Update a fact
+      operationId: updateFact
+      tags: [Facts]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InsertFact'
+      responses:
+        '200':
+          description: Updated fact
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fact'
+    delete:
+      summary: Delete a fact
+      operationId: deleteFact
+      tags: [Facts]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Fact deleted
+
+  /question-sets:
+    get:
+      summary: List question sets
+      operationId: getQuestionSets
+      tags: [QuestionSets]
+      responses:
+        '200':
+          description: List of question sets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QuestionSet'
+
+  /question-sets/{id}:
+    get:
+      summary: Get question set by ID
+      operationId: getQuestionSetById
+      tags: [QuestionSets]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Question set details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionSet'
+
+  /questions:
+    get:
+      summary: List all questions
+      operationId: getQuestions
+      tags: [Questions]
+      responses:
+        '200':
+          description: List of questions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Question'
+
+  /audit-runs:
+    get:
+      summary: List audit runs
+      operationId: getAuditRuns
+      tags: [AuditRuns]
+      responses:
+        '200':
+          description: List of audit runs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuditRun'
+    post:
+      summary: Create a new audit run
+      operationId: createAuditRun
+      tags: [AuditRuns]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InsertAuditRun'
+      responses:
+        '201':
+          description: Created audit run
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditRun'
+
+  /audit-runs/{id}:
+    get:
+      summary: Get audit run by ID
+      operationId: getAuditRunById
+      tags: [AuditRuns]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Audit run details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditRun'
+
+  /audit-runs/{id}/findings:
+    get:
+      summary: Get findings for audit run
+      operationId: getAuditRunFindings
+      tags: [AuditRuns]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of findings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Finding'
+
+  /findings:
+    get:
+      summary: Get all findings
+      operationId: getFindings
+      tags: [Findings]
+      responses:
+        '200':
+          description: List of findings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Finding'
+
+  /comparison/{baselineId}/{currentId}:
+    get:
+      summary: Compare two audit runs
+      operationId: compareAuditRuns
+      tags: [Comparison]
+      parameters:
+        - name: baselineId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: currentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Comparison result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comparison'
+
+components:
+  schemas:
+    Language:
+      type: string
+      enum: [fr, nl]
+
+    RiskTag:
+      type: string
+      enum: [deadline, eligibility, location, contact, docs, fees, hours, general]
+
+    FindingType:
+      type: string
+      enum: [incorrect, outdated, ungrounded, drift]
+
+    AuditStatus:
+      type: string
+      enum: [pending, running, completed, failed]
+
+    Provider:
+      type: string
+      enum: [mock-baseline, mock-after, openai]
+
+    Fact:
+      type: object
+      required: [id, key, lang, value, sourceRef, lastVerified]
+      properties:
+        id:
+          type: string
+        key:
+          type: string
+        lang:
+          $ref: '#/components/schemas/Language'
+        value:
+          type: string
+        sourceRef:
+          type: string
+        lastVerified:
+          type: string
+        linkedFactId:
+          type: string
+          nullable: true
+        topic:
+          type: string
+          nullable: true
+
+    InsertFact:
+      type: object
+      required: [key, lang, value, sourceRef, lastVerified]
+      properties:
+        key:
+          type: string
+        lang:
+          $ref: '#/components/schemas/Language'
+        value:
+          type: string
+        sourceRef:
+          type: string
+        lastVerified:
+          type: string
+        linkedFactId:
+          type: string
+          nullable: true
+        topic:
+          type: string
+          nullable: true
+
+    QuestionSet:
+      type: object
+      required: [id, title, languages, topics, version]
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        languages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Language'
+        topics:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+
+    Question:
+      type: object
+      required: [id, questionSetId, lang, topic, riskTag, text, expectedFactKeys]
+      properties:
+        id:
+          type: string
+        questionSetId:
+          type: string
+        lang:
+          $ref: '#/components/schemas/Language'
+        topic:
+          type: string
+        riskTag:
+          $ref: '#/components/schemas/RiskTag'
+        text:
+          type: string
+        expectedFactKeys:
+          type: array
+          items:
+            type: string
+
+    AuditRun:
+      type: object
+      required: [id, questionSetId, createdAt, provider, status]
+      properties:
+        id:
+          type: string
+        questionSetId:
+          type: string
+        createdAt:
+          type: string
+        provider:
+          $ref: '#/components/schemas/Provider'
+        status:
+          $ref: '#/components/schemas/AuditStatus'
+        baselineRunId:
+          type: string
+          nullable: true
+
+    InsertAuditRun:
+      type: object
+      required: [questionSetId]
+      properties:
+        questionSetId:
+          type: string
+        provider:
+          $ref: '#/components/schemas/Provider'
+        baselineRunId:
+          type: string
+          nullable: true
+
+    Finding:
+      type: object
+      required: [id, auditRunId, questionId, lang, type, severity, evidenceJson]
+      properties:
+        id:
+          type: string
+        auditRunId:
+          type: string
+        questionId:
+          type: string
+        lang:
+          $ref: '#/components/schemas/Language'
+        type:
+          $ref: '#/components/schemas/FindingType'
+        severity:
+          type: number
+          minimum: 0
+          maximum: 10
+        evidenceJson:
+          type: object
+        suggestedFix:
+          type: string
+          nullable: true
+
+    DashboardMetrics:
+      type: object
+      required: [totalFindings, findingsByType, findingsBySeverity, findingsByLang, topSeverityFindings, totalAuditRuns]
+      properties:
+        totalFindings:
+          type: integer
+        findingsByType:
+          type: object
+          additionalProperties:
+            type: integer
+        findingsBySeverity:
+          type: object
+          properties:
+            critical:
+              type: integer
+            high:
+              type: integer
+            medium:
+              type: integer
+            low:
+              type: integer
+        findingsByLang:
+          type: object
+          additionalProperties:
+            type: integer
+        topSeverityFindings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Finding'
+        lastRunDate:
+          type: string
+          nullable: true
+        totalAuditRuns:
+          type: integer
+
+    Comparison:
+      type: object
+      required: [baselineRunId, currentRunId, baselineDate, currentDate, baselineCounts, currentCounts, improvements, newFindings, resolvedFindings]
+      properties:
+        baselineRunId:
+          type: string
+        currentRunId:
+          type: string
+        baselineDate:
+          type: string
+        currentDate:
+          type: string
+        baselineCounts:
+          type: object
+          additionalProperties:
+            type: integer
+        currentCounts:
+          type: object
+          additionalProperties:
+            type: integer
+        improvements:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                $ref: '#/components/schemas/FindingType'
+              change:
+                type: integer
+        newFindings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Finding'
+        resolvedFindings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Finding'

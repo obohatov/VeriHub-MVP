@@ -15,8 +15,7 @@ outdated:
 
 ungrounded:
   require_citation_marker: true
-  cit
-  ation_markers:
+  citation_markers:
     - "[SRC:"
     - "Source:"
     - "Sources:"
