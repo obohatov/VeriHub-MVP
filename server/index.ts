@@ -3,6 +3,17 @@ import { registerRoutes } from "./routes";
 import { serveStatic } from "./static";
 import { createServer } from "http";
 
+function validateEnv() {
+  const dbMode = process.env.DB_MODE || "sqlite";
+  if (dbMode === "postgres" && !process.env.DATABASE_URL) {
+    console.error("[config] ERROR: DATABASE_URL is required when DB_MODE=postgres");
+    process.exit(1);
+  }
+  console.log(`[config] DB_MODE=${dbMode}, PORT=${process.env.PORT || 5000}`);
+}
+
+validateEnv();
+
 const app = express();
 const httpServer = createServer(app);
 

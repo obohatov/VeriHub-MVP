@@ -1,0 +1,57 @@
+You are Replit AI Agent. Please make a practical, minimal set of improvements to the existing project “VeriHub Civic — LLM Audit & Drift Dashboard” to strengthen compliance with the Zoomcamp project requirements, without overengineering or rewriting the stack.
+
+Current state:
+- Full-stack already works: React + Vite + TypeScript (client), Express + TypeScript (server).
+- DB layer exists (SQLite for dev + Postgres via docker-compose), migrations exist, CI checks pass.
+- OpenAPI exists as a committed openapi.yaml, and there is an export script (server/scripts/export_openapi.ts).
+- Artifacts are already in the repo and must remain the source of truth:
+  - data/question_sets/question_set_demoville_fr_nl_v2.json
+  - data/facts/facts_seed_v2.json
+  - data/mock/mock_llm_answers_baseline.json
+  - data/mock/mock_llm_answers_after.json
+  - data/scoring_rules.yaml
+  - Verified sources markdown are served from client/public/data/sources/*.md and must remain accessible via /data/sources/...
+
+Goals (do these, keep it minimal):
+1) Minimal real MCP implementation (not just documentation)
+   - Add a tiny MCP server (or MCP-like tool server) under server/mcp/ with 2 tools:
+     a) search_facts(query, lang?) -> returns matching facts from DB
+     b) list_findings(run_id, type?, min_severity?) -> returns findings from DB
+   - Provide a simple local run command and short README section:
+     - how to start MCP server
+     - example request payloads
+   - Keep it lightweight: no auth, no external deps beyond what’s necessary.
+
+2) Add OpenAPI validation into CI
+   - Add a CI step that validates openapi.yaml (e.g., swagger-cli validate or redocly lint).
+   - Ensure CI fails if OpenAPI is invalid.
+   - Do not regenerate openapi.yaml automatically in CI; just validate it.
+
+3) Add minimal frontend tests (1–2 tests only)
+   - Use React Testing Library (or Vitest + RTL).
+   - One test for Dashboard rendering key metrics (smoke test).
+   - One test for Findings filters affecting the list (basic behavior).
+   - Keep tests stable and fast. Add them to CI.
+
+4) Add .env.example and tighten configuration docs
+   - Create .env.example with PORT, DB_MODE, DATABASE_URL, and optional OPENAI_API_KEY.
+   - Add a short “Configuration” section to README explaining defaults.
+   - Add small runtime checks so missing required env vars produce a clear error message.
+
+Constraints:
+- Do not change the UI look-and-feel significantly.
+- Do not rename endpoints unless truly necessary. If you change anything, update both frontend client and openapi.yaml.
+- Do not remove existing unit/integration tests. Add only what is needed.
+- Keep changes reviewable: prefer small commits and minimal files.
+
+Deliverables:
+- New MCP server code + README section + run command
+- CI validates openapi.yaml
+- 1–2 frontend tests running in CI
+- .env.example and README config section
+
+After implementation, print a brief checklist:
+- MCP: entrypoint + run command + tools list
+- OpenAPI validation: CI step name and command
+- Frontend tests: how to run locally and in CI
+- .env.example: variables included

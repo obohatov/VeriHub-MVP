@@ -47,7 +47,7 @@ The application will be available at http://localhost:5000
 ### Running Tests
 
 ```bash
-# Run all tests
+# Run all backend tests
 npx vitest run
 
 # Run unit tests only
@@ -55,6 +55,9 @@ npx vitest run server/tests/unit
 
 # Run integration tests only
 npx vitest run server/tests/integration
+
+# Run frontend tests
+npx vitest run --config vitest.config.frontend.ts
 
 # Watch mode
 npx vitest
@@ -173,24 +176,82 @@ Placeholder for real OpenAI integration.
 docker compose up --build
 ```
 
+## Configuration
+
+Copy `.env.example` to `.env` and adjust as needed:
+
+```bash
+cp .env.example .env
+```
+
+| Variable | Description | Default | Required |
+|----------|-------------|---------|----------|
+| `PORT` | Server port | `5000` | No |
+| `DB_MODE` | Database mode (`sqlite` or `postgres`) | `sqlite` | No |
+| `DATABASE_URL` | PostgreSQL connection URL | - | Yes (if `DB_MODE=postgres`) |
+| `MCP_PORT` | MCP tool server port | `3001` | No |
+| `OPENAI_API_KEY` | OpenAI API key | - | No (only for `openai` provider) |
+
+The application validates required environment variables at startup and provides clear error messages if any are missing.
+
 ## CI/CD
 
 GitHub Actions workflow (`.github/workflows/ci.yml`) runs:
 1. TypeScript check
-2. Unit tests
-3. Integration tests (SQLite)
-4. Build
+2. OpenAPI specification validation (`npx @redocly/cli lint openapi.yaml`)
+3. Unit tests (`npx vitest run server/tests/unit`)
+4. Integration tests (`npx vitest run server/tests/integration`)
+5. Frontend tests (`npx vitest run --config vitest.config.frontend.ts`)
+6. Build
 
-## How MCP Could Fit
+## MCP Tool Server
 
-Model Context Protocol (MCP) could enhance this application by exposing tools:
+VeriHub Civic includes a minimal MCP-style tool server that exposes two tools for programmatic access:
 
-1. **search_facts(query, lang)** - Search verified facts
-2. **list_findings(run_id, type?, severity_min?)** - List findings with filters
-3. **create_audit_run(question_set_id, provider)** - Trigger new audits
-4. **get_comparison(baseline_id, current_id)** - Get comparison data
+### Available Tools
 
-MCP would enable:
+1. **search_facts** - Search verified facts in the database
+   - `query` (required): Search query string
+   - `lang` (optional): Filter by language (`fr` or `nl`)
+
+2. **list_findings** - List findings from an audit run
+   - `run_id` (required): Audit run ID
+   - `type` (optional): Filter by finding type (`incorrect`, `outdated`, `ungrounded`, `drift`)
+   - `min_severity` (optional): Minimum severity threshold (0-1)
+
+### Starting the MCP Server
+
+```bash
+# Start MCP server (default port 3001)
+npx tsx server/mcp/index.ts
+
+# Or with custom port
+MCP_PORT=3002 npx tsx server/mcp/index.ts
+```
+
+### Example Requests
+
+```bash
+# List available tools
+curl http://localhost:3001/tools
+
+# Search facts
+curl -X POST http://localhost:3001/tools/search_facts \
+  -H "Content-Type: application/json" \
+  -d '{"query": "phone", "lang": "fr"}'
+
+# List findings for a run
+curl -X POST http://localhost:3001/tools/list_findings \
+  -H "Content-Type: application/json" \
+  -d '{"run_id": "run-123", "type": "incorrect", "min_severity": 0.5}'
+
+# Health check
+curl http://localhost:3001/health
+```
+
+### MCP Integration Potential
+
+The tool server enables:
 - Real-time fact verification from external sources
 - Multi-model LLM comparison
 - Integration with document management systems

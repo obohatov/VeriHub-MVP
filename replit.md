@@ -12,8 +12,9 @@ Production-ready MVP with:
 - Findings detection (incorrect, outdated, ungrounded, drift)
 - Before/After comparison view
 - SQLite database with seeding from JSON artifacts
-- OpenAPI 3.1 specification
-- Unit and integration tests
+- OpenAPI 3.1 specification with CI validation
+- Unit, integration, and frontend tests
+- MCP tool server (search_facts, list_findings)
 - Docker containerization
 - GitHub Actions CI/CD
 
@@ -36,6 +37,7 @@ Production-ready MVP with:
 /server
   /db                # Database schema, connection, migrations
   /loaders           # Artifact loaders (JSON/YAML)
+  /mcp               # MCP tool server (search_facts, list_findings)
   /services          # Business logic (audit runner, scoring, drift detection, mock LLM)
   /tests             # Unit and integration tests
     /unit

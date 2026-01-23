@@ -23,6 +23,9 @@ jobs:
       
       - name: TypeScript check
         run: npx tsc --noEmit
+      
+      - name: Validate OpenAPI specification
+        run: npx @redocly/cli lint openapi.yaml
 
   unit-tests:
     runs-on: ubuntu-latest
@@ -62,9 +65,27 @@ jobs:
         env:
           DB_MODE: sqlite
 
+  frontend-tests:
+    runs-on: ubuntu-latest
+    needs: lint-and-typecheck
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run frontend tests
+        run: npx vitest run --config vitest.config.frontend.ts
+
   build:
     runs-on: ubuntu-latest
-    needs: [unit-tests, integration-tests]
+    needs: [unit-tests, integration-tests, frontend-tests]
     steps:
       - uses: actions/checkout@v4
       
