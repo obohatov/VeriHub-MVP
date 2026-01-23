@@ -49,44 +49,46 @@ VeriHub Civic turns “AI said something wrong” into a measurable operational 
 
 ---
 
-## Project structure
+## Project Structure
 
 ```text
-/client
-  /public
-    /data/sources        # verified markdown sources accessible at /data/sources/...
-  /src                   # React UI
-/server
-  /services              # audit runner, scoring, drift, mock LLM provider
-  routes.ts              # API endpoints
-  storage.ts             # in-memory storage + seedData()
-/shared
-  schema.ts              # shared types + Zod schemas
-/data
-  /facts                 # JSON facts seed packs
-  /question_sets         # JSON question sets
-  /mock                  # baseline / after mock LLM answers
-  scoring_rules.yaml     # scoring configuration
-/docs
-  demo_script_3min.md    # demo steps for presentations
-
+.
+├── client/
+│   ├── public/
+│   │   └── data/sources/      # Verified markdown sources
+│   └── src/                   # React UI
+└── server/
+    ├── services/              # Audit runner, scoring, drift, mock LLM provider
+    └── routes.ts              # API endpoints
+---
+```
 ## Getting started (local dev)
-
+```
+```
 ### Prerequisites
 - Node.js 20+
 
 ### Run in dev mode
+```
+```
+
+1. **Install dependencies:**
 ```bash
 npm install
+```
+
+2. **Start the server and client:**
+```bash
 npm run dev
+```
+> App runs on: [http://localhost:5000](http://localhost:5000)
 
-App runs on:
-
-http://localhost:5000
-
+3. **Run quality checks:**
 ```bash
 npm run check
+```
 
+---
 
 ## Data packs (artifacts)
 
@@ -98,57 +100,57 @@ This repo includes file-based artifacts for reproducible demos and future DB see
 - `data/mock/mock_llm_answers_after.json` — improved answers (for before/after)  
 - `data/scoring_rules.yaml` — scoring configuration  
 
-Verified sources (human-readable and linkable):
-
+**Verified sources (human-readable and linkable):**
 - `client/public/data/sources/*.md` — accessible at `/data/sources/...`
 
-> Note: The current server still seeds data from `server/storage.ts`.  
+> **Note:** The current server still seeds data from `server/storage.ts`.  
 > Next step is to load seeds from `/data/*.json` and use baseline/after mock files directly.
 
 ---
 
 ## API endpoints (current)
 
-- `GET /api/dashboard/metrics`
-- `GET /api/facts`
-- `GET /api/facts/search?q=...`
-- `GET /api/facts/:id`
-- `POST /api/facts`
-- `PUT /api/facts/:id`
-- `DELETE /api/facts/:id`
-- `GET /api/question-sets`
-- `GET /api/questions`
-- `GET /api/audit-runs`
-- `POST /api/audit-runs`
-- `GET /api/audit-runs/:id`
-- `GET /api/audit-runs/:id/findings`
-- `GET /api/findings`
-- `GET /api/comparison/:baselineId/:currentId`
+```text
+GET    /api/dashboard/metrics
+GET    /api/facts
+GET    /api/facts/search?q=...
+GET    /api/facts/:id
+POST   /api/facts
+PUT    /api/facts/:id
+DELETE /api/facts/:id
+GET    /api/question-sets
+GET    /api/questions
+GET    /api/audit-runs
+POST   /api/audit-runs
+GET    /api/audit-runs/:id
+GET    /api/audit-runs/:id/findings
+GET    /api/findings
+GET    /api/comparison/:baselineId/:currentId
+```
 
 ---
 
 ## 3-minute demo script (quick)
 
-1) **Dashboard**: show latest metrics and overview of findings.  
-2) **Question Sets**: show FR/NL pairs and risk tags.  
-3) **Audit Runs**: start a new run (baseline).  
-4) **Findings**: filter by type (incorrect / ungrounded / drift) and open 1–2 findings.  
-5) **Facts Hub**: open a fact and click `sourceRef` (opens `/data/sources/...`).  
-6) **Run again (after)**: show comparison page (resolved findings, counts drop).  
-7) Close: “This is regression testing for public information in the AI era.”
+1. **Dashboard**: show latest metrics and overview of findings.  
+2. **Question Sets**: show FR/NL pairs and risk tags.  
+3. **Audit Runs**: start a new run (baseline).  
+4. **Findings**: filter by type (incorrect / ungrounded / drift) and open 1–2 findings.  
+5. **Facts Hub**: open a fact and click `sourceRef` (opens `/data/sources/...`).  
+6. **Run again (after)**: show comparison page (resolved findings, counts drop).  
+7. **Close**: “This is regression testing for public information in the AI era.”
 
 Full script: see `docs/demo_script_3min.md`.
 
 ---
 
-## Roadmap (hardening for course-style requirements)
+## Roadmap
 
-Planned upgrades:
-- Load seeds from `/data/*.json` (facts, questions, mock answers)
-- Export and commit static OpenAPI (`openapi.yaml`)
-- Add unit + integration tests
-- Add Docker + docker-compose (including Postgres)
-- Add GitHub Actions CI (lint/typecheck/tests)
+- [ ] Load seeds from `/data/*.json` (facts, questions, mock answers)
+- [ ] Export and commit static OpenAPI (`openapi.yaml`)
+- [ ] Add unit + integration tests
+- [ ] Add Docker + docker-compose
+- [ ] Add GitHub Actions CI (lint/typecheck/tests)
 
 ---
 

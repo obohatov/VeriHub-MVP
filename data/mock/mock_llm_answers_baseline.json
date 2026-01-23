@@ -1,0 +1,40 @@
+{
+  "q_fr_001": { "answer_text": "Vous pouvez prendre rendez-vous via https://demoville.example/old-booking (ancien lien).", "citations": [] },
+  "q_nl_001": { "answer_text": "Officiële link: https://demoville.example/afspraak. [SRC: Afspraak NL]", "citations": ["/data/sources/nl_appointments.md"] },
+
+  "q_fr_002": { "answer_text": "Téléphone: +32 2 555 0102.", "citations": [] },
+  "q_nl_002": { "answer_text": "Telefoon: +32 2 555 0102. [SRC: Contact NL]", "citations": ["/data/sources/nl_contact.md"] },
+
+  "q_fr_003": { "answer_text": "Email: info@demoville.example.", "citations": [] },
+  "q_nl_003": { "answer_text": "E-mail: info@demoville.example.", "citations": [] },
+
+  "q_fr_004": { "answer_text": "Adresse: Rue Exemple 10, 1000 DemoVille.", "citations": [] },
+  "q_nl_004": { "answer_text": "Adres: Voorbeeldstraat 10, 1000 DemoVille. [SRC: Contact NL]", "citations": ["/data/sources/nl_contact.md"] },
+
+  "q_fr_005": { "answer_text": "Ouvert du lundi au vendredi, 08:30–16:30.", "citations": [] },
+  "q_nl_005": { "answer_text": "Openingsuren: Ma–Vr 08:30–16:00. [SRC: Afspraak NL]", "citations": ["/data/sources/nl_appointments.md"] },
+
+  "q_fr_006": { "answer_text": "Le rendez-vous n’est pas obligatoire, vous pouvez venir sans rendez-vous.", "citations": [] },
+  "q_nl_006": { "answer_text": "Afspraak is verplicht; beperkte vrije inloop op dinsdag 09:00–12:00. [SRC: Afspraak NL]", "citations": ["/data/sources/nl_appointments.md"] },
+
+  "q_fr_007": { "answer_text": "Vous devez vous déclarer dans les 10 jours.", "citations": [] },
+  "q_nl_007": { "answer_text": "Binnen 10 dagen na verhuis aanmelden. [SRC: Procedure NL]", "citations": ["/data/sources/nl_service_residence.md"] },
+
+  "q_fr_008": { "answer_text": "Le traitement prend environ 7 jours ouvrables.", "citations": [] },
+  "q_nl_008": { "answer_text": "Doorlooptijd: 5 werkdagen. [SRC: Procedure NL]", "citations": ["/data/sources/nl_service_residence.md"] },
+
+  "q_fr_009": { "answer_text": "Cela coûte 12 EUR.", "citations": [] },
+  "q_nl_009": { "answer_text": "Kost: 10 EUR. [SRC: Procedure NL]", "citations": ["/data/sources/nl_service_residence.md"] },
+
+  "q_fr_010": { "answer_text": "Paiement: cash uniquement.", "citations": [] },
+  "q_nl_010": { "answer_text": "Betalen: kaart of Bancontact. [SRC: Procedure NL]", "citations": ["/data/sources/nl_service_residence.md"] },
+
+  "q_fr_011": { "answer_text": "Apportez votre carte d'identité et une preuve d'adresse.", "citations": [] },
+  "q_nl_011": { "answer_text": "Documenten: identiteitskaart, bewijs van adres, ondertekend formulier. [SRC: Procedure NL]", "citations": ["/data/sources/nl_service_residence.md"] },
+
+  "q_fr_012": { "answer_text": "Formulaire: https://demoville.example/forms/old-residence.pdf", "citations": [] },
+  "q_nl_012": { "answer_text": "Officieel formulier: https://demoville.example/formulieren/verblijf.pdf. [SRC: Procedure NL]", "citations": ["/data/sources/nl_service_residence.md"] },
+
+  "q_fr_013": { "answer_text": "Tout le monde peut demander ce document, sans condition particulière.", "citations": [] },
+  "q_nl_013": { "answer_text": "Alleen ingeschreven inwoners kunnen dit aanvragen. [SRC: Procedure NL]", "citations": ["/data/sources/nl_service_residence.md"] }
+}

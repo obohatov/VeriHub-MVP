@@ -1,0 +1,40 @@
+{
+  "q_fr_001": { "answer_text": "Lien officiel: https://demoville.example/book. [SRC: Rendez-vous FR]", "citations": ["/data/sources/fr_appointments.md"] },
+  "q_nl_001": { "answer_text": "Officiële link: https://demoville.example/afspraak. [SRC: Afspraak NL]", "citations": ["/data/sources/nl_appointments.md"] },
+
+  "q_fr_002": { "answer_text": "Téléphone officiel: +32 2 555 0101. [SRC: Contact FR]", "citations": ["/data/sources/fr_contact.md"] },
+  "q_nl_002": { "answer_text": "Telefoon: +32 2 555 0102. [SRC: Contact NL]", "citations": ["/data/sources/nl_contact.md"] },
+
+  "q_fr_003": { "answer_text": "Email officiel: info@demoville.example. [SRC: Contact FR]", "citations": ["/data/sources/fr_contact.md"] },
+  "q_nl_003": { "answer_text": "Officieel e-mailadres: info@demoville.example. [SRC: Contact NL]", "citations": ["/data/sources/nl_contact.md"] },
+
+  "q_fr_004": { "answer_text": "Adresse: Rue Exemple 10, 1000 DemoVille. [SRC: Contact FR]", "citations": ["/data/sources/fr_contact.md"] },
+  "q_nl_004": { "answer_text": "Adres: Voorbeeldstraat 10, 1000 DemoVille. [SRC: Contact NL]", "citations": ["/data/sources/nl_contact.md"] },
+
+  "q_fr_005": { "answer_text": "Heures: Lun–Ven 08:30–16:30. [SRC: Rendez-vous FR]", "citations": ["/data/sources/fr_appointments.md"] },
+  "q_nl_005": { "answer_text": "Openingsuren: Ma–Vr 08:30–16:00. [SRC: Afspraak NL]", "citations": ["/data/sources/nl_appointments.md"] },
+
+  "q_fr_006": { "answer_text": "Rendez-vous obligatoire. Sans rendez-vous: non walk-in. [SRC: Rendez-vous FR]", "citations": ["/data/sources/fr_appointments.md"] },
+  "q_nl_006": { "answer_text": "Afspraak verplicht; beperkte vrije inloop dinsdag 09:00–12:00. [SRC: Afspraak NL]", "citations": ["/data/sources/nl_appointments.md"] },
+
+  "q_fr_007": { "answer_text": "Déclarez-vous dans les 8 jours après déménagement. [SRC: Procédure FR]", "citations": ["/data/sources/fr_service_residence.md"] },
+  "q_nl_007": { "answer_text": "Binnen 10 dagen na verhuis aanmelden. [SRC: Procedure NL]", "citations": ["/data/sources/nl_service_residence.md"] },
+
+  "q_fr_008": { "answer_text": "Délai de traitement: 5 jours ouvrables. [SRC: Procédure FR]", "citations": ["/data/sources/fr_service_residence.md"] },
+  "q_nl_008": { "answer_text": "Doorlooptijd: 5 werkdagen. [SRC: Procedure NL]", "citations": ["/data/sources/nl_service_residence.md"] },
+
+  "q_fr_009": { "answer_text": "Frais: 10 EUR. [SRC: Procédure FR]", "citations": ["/data/sources/fr_service_residence.md"] },
+  "q_nl_009": { "answer_text": "Kost: 10 EUR. [SRC: Procedure NL]", "citations": ["/data/sources/nl_service_residence.md"] },
+
+  "q_fr_010": { "answer_text": "Paiement: carte ou Bancontact. [SRC: Procédure FR]", "citations": ["/data/sources/fr_service_residence.md"] },
+  "q_nl_010": { "answer_text": "Betalen: kaart of Bancontact. [SRC: Procedure NL]", "citations": ["/data/sources/nl_service_residence.md"] },
+
+  "q_fr_011": { "answer_text": "Documents: carte d'identité, preuve d'adresse (bail/facture), formulaire signé. [SRC: Procédure FR]", "citations": ["/data/sources/fr_service_residence.md"] },
+  "q_nl_011": { "answer_text": "Documenten: identiteitskaart, bewijs van adres (huurcontract/factuur), ondertekend formulier. [SRC: Procedure NL]", "citations": ["/data/sources/nl_service_residence.md"] },
+
+  "q_fr_012": { "answer_text": "Formulaire officiel: https://demoville.example/forms/residence.pdf. [SRC: Procédure FR]", "citations": ["/data/sources/fr_service_residence.md"] },
+  "q_nl_012": { "answer_text": "Officieel formulier: https://demoville.example/formulieren/verblijf.pdf. [SRC: Procedure NL]", "citations": ["/data/sources/nl_service_residence.md"] },
+
+  "q_fr_013": { "answer_text": "Éligibilité: réservé aux personnes enregistrées à DemoVille; pièce d'identité valide requise. [SRC: Procédure FR]", "citations": ["/data/sources/fr_service_residence.md"] },
+  "q_nl_013": { "answer_text": "Voorwaarden: alleen ingeschreven inwoners; geldige identiteitskaart vereist. [SRC: Procedure NL]", "citations": ["/data/sources/nl_service_residence.md"] }
+}

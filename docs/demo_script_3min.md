@@ -11,23 +11,28 @@ Goal: show (a) baseline problems, (b) “after” rerun with measurable improvem
 ## 0:30–1:30 — Baseline audit (mock-baseline)
 3) Go to **Audit Runs** → **New Run**:
    - Question set: `demoville_residence_v2`
-   - Provider: `mock-baseline`
+   - Provider: `mock-baseline` (or baseline mode)
    - Start
 4) Open the run → **Findings**:
    - Filter `type=incorrect`: show 1–2 examples (wrong appointment link, wrong fee, wrong phone).
    - Filter `type=ungrounded`: show answers without sources/citations.
-   - Filter `type=drift`: show FR vs NL mismatch (opening hours / walk-in policy / deadlines).
+   - Filter `type=drift`: show FR vs NL mismatch (opening hours / walk-in policy).
 
 Tip: open one finding card and point to:
 - extracted value
 - expected fact key
 - suggested fix
+- sourceRef (verified source) if shown
 
 ## 1:30–2:30 — After rerun (mock-after)
 5) Create a second run:
-   - Provider: `mock-after`
+   - Provider: `mock-after` (or after mode)
 6) Open **Comparison** (or open the second run):
    - Show that `incorrect` and `ungrounded` findings drop.
    - Open the same “problem question” and show it now uses the official link and includes a citation marker.
 
-## 2:30–3:00 — Close (drif
+## 2:30–3:00 — Close (drift matters)
+7) Re-open a drift finding:
+   - “Even official FR and NL pages drift. VeriHub makes it measurable and actionable.”
+8) Closing line:
+   - “This is regression testing for public information in the AI era.”
