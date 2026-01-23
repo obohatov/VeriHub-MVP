@@ -208,7 +208,64 @@ MCP would enable:
 
 ## Contributing
 
-See `docs/ai_worklog.md` for how AI tools were used in development.
+## API endpoints (current)
+
+```text
+GET    /api/dashboard/metrics
+GET    /api/facts
+GET    /api/facts/search?q=...
+GET    /api/facts/:id
+POST   /api/facts
+PUT    /api/facts/:id
+DELETE /api/facts/:id
+GET    /api/question-sets
+GET    /api/questions
+GET    /api/audit-runs
+POST   /api/audit-runs
+GET    /api/audit-runs/:id
+GET    /api/audit-runs/:id/findings
+GET    /api/findings
+GET    /api/comparison/:baselineId/:currentId
+```
+
+---
+
+## 3-minute demo script (quick)
+
+1. **Dashboard**: show latest metrics and overview of findings.  
+2. **Question Sets**: show FR/NL pairs and risk tags.  
+3. **Audit Runs**: start a new run (baseline).  
+4. **Findings**: filter by type (incorrect / ungrounded / drift) and open 1–2 findings.  
+5. **Facts Hub**: open a fact and click `sourceRef` (opens `/data/sources/...`).  
+6. **Run again (after)**: show comparison page (resolved findings, counts drop).  
+7. **Close**: “This is regression testing for public information in the AI era.”
+
+Full script: see `docs/demo_script_3min.md`.
+
+---
+
+## Roadmap
+
+- [ ] Load seeds from `/data/*.json` (facts, questions, mock answers)
+- [ ] Export and commit static OpenAPI (`openapi.yaml`)
+- [ ] Add unit + integration tests
+- [ ] Add Docker + docker-compose
+- [ ] Add GitHub Actions CI (lint/typecheck/tests)
+
+## Screenshots
+
+### Dashboard — key metrics and severity overview
+![Dashboard view showing total findings, critical issues, FR/NL drift, and severity distribution](docs/screenshots/dashboard.png)
+
+The dashboard summarizes the most recent audit results: total findings across runs, critical issues (severity 8–10), FR/NL drift count, and a severity distribution breakdown.
+
+### Findings — actionable issue list with suggested fixes
+![Findings view showing filters, issue cards, and suggested fixes for incorrect answers and FR/NL drift](docs/screenshots/findings.png)
+
+The findings page provides a filterable list of detected issues (incorrect, outdated, ungrounded, FR/NL drift). Each item includes evidence (expected vs actual) and a suggested fix to reduce real-world harm (wrong fees, outdated links, inconsistent procedures across languages).
+
+---
+
 
 ## License
 
