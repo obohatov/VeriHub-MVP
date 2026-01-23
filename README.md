@@ -152,6 +152,18 @@ Full script: see `docs/demo_script_3min.md`.
 - [ ] Add Docker + docker-compose
 - [ ] Add GitHub Actions CI (lint/typecheck/tests)
 
+## Screenshots
+
+### Dashboard — key metrics and severity overview
+![Dashboard view showing total findings, critical issues, FR/NL drift, and severity distribution](docs/screenshots/dashboard.png)
+
+The dashboard summarizes the most recent audit results: total findings across runs, critical issues (severity 8–10), FR/NL drift count, and a severity distribution breakdown.
+
+### Findings — actionable issue list with suggested fixes
+![Findings view showing filters, issue cards, and suggested fixes for incorrect answers and FR/NL drift](docs/screenshots/findings.png)
+
+The findings page provides a filterable list of detected issues (incorrect, outdated, ungrounded, FR/NL drift). Each item includes evidence (expected vs actual) and a suggested fix to reduce real-world harm (wrong fees, outdated links, inconsistent procedures across languages).
+
 ---
 
 ## License
