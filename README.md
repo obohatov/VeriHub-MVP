@@ -1,6 +1,9 @@
 # VeriHub Civic — LLM Audit & Drift Dashboard
 
-A full-stack dashboard that helps public-facing organizations measure what LLMs say about key civic services in French (FR) and Dutch (NL). The application detects issues such as incorrect information, outdated content, ungrounded claims, and FR↔NL drift, and shows measurable "before/after" improvement after updating a verified Facts & Sources Hub.
+A full-stack dashboard that helps organizations measure what LLMs say about key civic services in French (FR) and Dutch (NL). The application detects issues such as incorrect information, outdated content, ungrounded claims, and FR↔NL drift, and shows measurable "before/after" improvement after updating a verified Facts & Sources Hub.
+
+**Status:** pilot-ready prototype. **Public MVP launch:** March 2026.  
+**Looking for:** 1–2 pilot partners in Belgium (FR/NL).
 
 ## Why this matters
 
@@ -29,6 +32,20 @@ VeriHub Civic turns "AI said something wrong" into a measurable operational loop
 - **ORM**: Drizzle ORM
 - **State Management**: TanStack Query (React Query)
 - **Routing**: Wouter
+
+## Screenshots
+
+### Dashboard — key metrics and severity overview
+![Dashboard view showing total findings, critical issues, FR/NL drift, and severity distribution](docs/screenshots/dashboard.png)
+
+The dashboard summarizes the most recent audit results: total findings across runs, critical issues (severity 8–10), FR/NL drift count, and a severity distribution breakdown.
+
+### Findings — actionable issue list with suggested fixes
+![Findings view showing filters, issue cards, and suggested fixes for incorrect answers and FR/NL drift](docs/screenshots/findings.png)
+
+The findings page provides a filterable list of detected issues (incorrect, outdated, ungrounded, FR/NL drift). Each item includes evidence (expected vs actual) and a suggested fix to reduce real-world harm (wrong fees, outdated links, inconsistent procedures across languages).
+
+---
 
 ## Quick Start
 
@@ -305,20 +322,13 @@ Full script: see `docs/demo_script_3min.md`.
 
 ---
 
-## Screenshots
+## Security & privacy notes (prototype)
 
-### Dashboard — key metrics and severity overview
-![Dashboard view showing total findings, critical issues, FR/NL drift, and severity distribution](docs/screenshots/dashboard.png)
-
-The dashboard summarizes the most recent audit results: total findings across runs, critical issues (severity 8–10), FR/NL drift count, and a severity distribution breakdown.
-
-### Findings — actionable issue list with suggested fixes
-![Findings view showing filters, issue cards, and suggested fixes for incorrect answers and FR/NL drift](docs/screenshots/findings.png)
-
-The findings page provides a filterable list of detected issues (incorrect, outdated, ungrounded, FR/NL drift). Each item includes evidence (expected vs actual) and a suggested fix to reduce real-world harm (wrong fees, outdated links, inconsistent procedures across languages).
+- The demo runs on local data and does not require customer data.
+- When used in pilots, we aim to minimise stored content and keep a clear audit trail of sources and changes.
+- MVP roadmap includes roles/access control, audit logs, retention controls, and deployment options suitable for regulated environments.
 
 ---
-
 
 ## License
 
