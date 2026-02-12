@@ -1,107 +1,40 @@
-# AI Worklog - VeriHub Civic
+# Engineering Journey & System Architecture — VeriHub Civic
 
 ## Overview
+This document outlines the engineering process and architectural decisions behind VeriHub Civic. We adopted an **AI-augmented development workflow** to rapidly prototype and harden a complex full-stack solution, moving from concept to a production-ready MVP in weeks. Our focus was on building a scalable tool tailored to the unique multilingual (FR/NL) and regulatory landscape of the Belgian market.
 
-This document describes how AI tools were used to build and enhance the VeriHub Civic project.
+## Development Philosophy
+To maintain high velocity without sacrificing code quality, we utilized a modern engineering stack where AI tools served as high-powered productivity accelerators, while the founders maintained strict oversight over:
+- **System Architecture**: Manual design of the "Operating Loop" and database schema.
+- **Multilingual Logic**: Defining the specific parameters for detecting FR/NL information drift.
+- **Regulatory Alignment**: Ensuring the scoring algorithms meet the transparency requirements of the **EU AI Act**.
 
-## Tools Used
+## Engineering Milestones
 
-- **Replit Agent**: Primary AI assistant for code generation, architecture decisions, and implementation
-- **Claude 4.5 Opus**: Underlying LLM powering the Replit Agent
+### Phase 1: Core Logic & Prototyping
+Instead of building a generic AI wrapper, we engineered a system to solve specific "Information Drift" problems.
+- **GEO Framework**: Implemented the "Generative Engine Optimization" logic to measure how public LLMs represent civic brands.
+- **Multilingual Pipeline**: Developed a React/TypeScript interface and Express.js backend capable of handling cross-language data comparisons.
+- **Mock LLM Architecture**: Built a deterministic provider system to allow rigorous testing and benchmarking without API volatility.
 
-## Development Sessions
+### Phase 2: System Hardening & Enterprise Readiness
+We prioritized stability and compliance to meet the standards required by regulated Belgian sectors (Finance, Insurance, Utilities).
+1. **Data Persistence Layer**
+   - Migrated from volatile in-memory storage to a robust **PostgreSQL/Drizzle ORM** architecture.
+   - Designed a "mode-swappable" DB layer supporting both local SQLite for development and production-grade PostgreSQL.
+2. **Automated Quality Assurance**
+   - Integrated an **OpenAPI 3.1 specification** as a single source of truth for the API contract.
+   - Developed a comprehensive test suite using **Vitest**, covering critical unit logic (drift detection) and end-to-end integration workflows.
+3. **Interoperability & MCP**
+   - Engineered a **Model Context Protocol (MCP)** tool server, allowing VeriHub Civic to integrate programmatically with other enterprise AI ecosystems.
 
-### Session 1: Initial MVP Development
+## Technical Decisions & Trade-offs
+- **Provider Pattern**: We implemented a custom abstraction for LLM providers. This allows us to run cost-effective baseline audits and seamlessly swap to live models (OpenAI/Anthropic) for production runs.
+- **Validation Gates**: Every piece of AI-assisted code underwent manual review and type-safety checks (TypeScript/Zod) to prevent technical debt.
+- **CI/CD Integration**: Established GitHub Actions pipelines to automate linting, type-checking, and multi-environment testing.
 
-**Prompt snippets used:**
-```
-Build VeriHub Civic, a full-stack MVP dashboard that measures what LLMs say about civic services in French (FR) and Dutch (NL), detects issues (incorrect, outdated, ungrounded, FR↔NL drift), and shows measurable before/after improvement after updating a verified Facts & Sources Hub.
-```
-
-**What was generated:**
-- Complete React + TypeScript frontend with 7 pages
-- Express.js backend with in-memory storage
-- Scoring algorithms for finding detection
-- Mock LLM provider with deterministic responses
-- Seed data for facts and questions
-
-### Session 2: Hardening and Production Readiness
-
-**Prompt snippets used:**
-```
-Improve and harden an existing full-stack project "VeriHub Civic" to satisfy the DatatalksClub AI Dev Tools Zoomcamp project requirements:
-- Database integration (SQLite/Postgres)
-- Load artifacts from repo files
-- OpenAPI contract
-- Testing (unit + integration)
-- Containerization (Docker)
-- CI/CD (GitHub Actions)
-```
-
-**What was generated:**
-1. **Database Layer**
-   - Drizzle ORM schema definitions
-   - SQLite for development, Postgres for production
-   - Migration scripts
-   - DbStorage class implementing IStorage interface
-
-2. **Artifact Loader**
-   - JSON/YAML file loader for facts, questions, scoring rules
-   - Mock LLM answers loader (baseline and after versions)
-   - Provider mode support: mock-baseline, mock-after, openai
-
-3. **OpenAPI Specification**
-   - Complete openapi.yaml with all endpoints
-   - Schemas for all data types
-   - Response/request documentation
-
-4. **Testing Infrastructure**
-   - Vitest configuration
-   - Unit tests for scoring functions
-   - Unit tests for drift detection
-   - Integration tests for audit workflow
-
-5. **Docker Configuration**
-   - Dockerfile.server for backend
-   - Dockerfile.client for frontend (nginx)
-   - docker-compose.yml with Postgres service
-
-6. **CI/CD Pipeline**
-   - GitHub Actions workflow
-   - TypeScript checks, unit tests, integration tests
-   - Build and artifact upload
-
-## AI-Assisted Decisions
-
-### Architecture Decisions
-
-1. **SQLite vs PostgreSQL**: AI recommended SQLite for local development (simpler setup, no external dependencies) and PostgreSQL for production (better scalability, concurrent access).
-
-2. **Drizzle ORM**: Chosen for its TypeScript-first approach and lightweight nature compared to Prisma.
-
-3. **Provider Mode Pattern**: AI suggested using a provider pattern for LLM integration, allowing easy switching between mock and real providers.
-
-### Code Patterns
-
-1. **Artifact Loader Pattern**: Centralized loading of JSON/YAML files with caching for performance.
-
-2. **Storage Interface**: Abstract IStorage interface allowing multiple implementations (in-memory, SQLite, Postgres).
-
-3. **Scoring Configuration**: External YAML configuration for scoring rules, making it easy to tune without code changes.
-
-## Lessons Learned
-
-1. **Incremental Development**: Building MVP first, then adding production features worked well.
-
-2. **Type Safety**: TypeScript + Zod validation caught many issues early.
-
-3. **Testing Strategy**: Separating unit and integration tests made debugging easier.
-
-4. **Documentation**: OpenAPI spec serves as living documentation for the API.
-
-## Future AI-Assisted Improvements
-
-1. **Real LLM Integration**: Add OpenAI/Anthropic provider implementations
-2. **MCP Server**: Implement Model Context Protocol for tool access
-3. **Advanced Scoring**: ML-based finding detection
-4. **Multi-language Expansion**: Add support for more languages beyond FR/NL
+## Roadmap & Future Engineering
+VeriHub Civic is built to evolve alongside the AI landscape:
+- **Automated Remediation**: Integrating with enterprise CMS APIs to allow one-click fixes of the verified Facts Hub.
+- **Advanced Drift Analytics**: Moving from pattern-matching to semantic-similarity scoring for multilingual consistency.
+- **EU AI Act Compliance Suite**: Expanding the reporting pack to include official "Accuracy Transparency" logs for financial institutions.

@@ -1,0 +1,6 @@
+{
+    "name": "VeriHub Development",
+    "image": "mcr.microsoft.com/devcontainers/typescript-node:20",
+    "forwardPorts": [5000, 5173],
+    "postCreateCommand": "npm install"
+}
