@@ -1,6 +1,7 @@
-# VeriHub Civic — LLM Audit & Drift Dashboard
+# VeriHub — LLM Audit & Drift Dashboard
 
-A full-stack dashboard that helps organizations measure what LLMs say about key civic services in French (FR) and Dutch (NL). The application detects issues such as incorrect information, outdated content, ungrounded claims, and FR↔NL drift, and shows measurable "before/after" improvement after updating a verified Facts & Sources Hub.
+VeriHub helps organisations monitor what public LLMs say about them (FR/NL/EN) so customers don’t get misled by wrong or outdated “first answers”.
+We run recurring Q&A audits, flag high-risk issues (wrong/outdated answers, missing sources, FR/NL drift), guide fast fixes on official pages/FAQs, and recheck the before/after delta.
 
 **Status:** pilot-ready prototype. **Public MVP launch:** March 2026.  
 **Looking for:** 1–2 pilot partners in Belgium (FR/NL).
@@ -9,11 +10,11 @@ A full-stack dashboard that helps organizations measure what LLMs say about key 
 
 LLM answers scale. A single outdated link, wrong phone number, missing deadline, or inconsistent FR/NL instruction can propagate across thousands of interactions and cause real-world harm: missed deadlines, incorrect submissions, extra helpdesk load, and loss of trust.
 
-VeriHub Civic turns "AI said something wrong" into a measurable operational loop:
-1. Run recurring audits with realistic question sets (per language)
-2. Produce an actionable issue map
-3. Fix verified facts / sources
-4. Re-run the audit and measure before/after
+## 🚀 Why VeriHub?
+In the AI-first world, your reputation isn't in search results; it's in LLM responses. 
+- **EU AI Act Ready**: Helping regulated sectors (Finance, Insurance, Utilities) comply with accuracy requirements.
+- **Multilingual Native**: Automated detection of FR/NL drift—the #1 pain point for Belgian enterprises.
+- **Measurable ROI**: Move from "AI says wrong things" to a structured "Operating Loop" with measurable improvements.
 
 ## Features
 
@@ -24,14 +25,8 @@ VeriHub Civic turns "AI said something wrong" into a measurable operational loop
 - **Findings Detection**: Automatic detection of incorrect, outdated, ungrounded, and drift issues
 - **Before/After Comparison**: Compare two audit runs to see improvements
 
-## Tech Stack
-
-- **Frontend**: React + TypeScript + Vite + TailwindCSS + shadcn/ui
-- **Backend**: Express.js + TypeScript
-- **Database**: SQLite (development) / PostgreSQL (production)
-- **ORM**: Drizzle ORM
-- **State Management**: TanStack Query (React Query)
-- **Routing**: Wouter
+## 🛠 Tech & Trust
+Built with a production-grade stack (React, Express, PostgreSQL, MCP) and ready for enterprise pilots.
 
 ## Screenshots
 
